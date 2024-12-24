@@ -48,7 +48,6 @@ async function initMap() {
       extData: {
         id: item.id,
         type: item.type,
-        state: 0,
       },
     });
     viaMarker.on("click", (e: any) => {
@@ -63,25 +62,13 @@ async function initMap() {
               image: (typeImageClick as any)[type],
             })
           );
-          e.target.setExtData({
-            id: id,
-            type: type,
-            state: 1,
-          });
         } else {
           //不同复原
-          if (markerItem.getExtData().state === 1) {
-            markerItem.setExtData({
-              id: markerItem.getExtData().id,
-              type: markerItem.getExtData().type,
-              state: 0,
-            });
-            markerItem.setIcon(
-              new AMap.Icon({
-                image: (typeImage as any)[markerItem.getExtData().type],
-              })
-            );
-          }
+          markerItem.setIcon(
+            new AMap.Icon({
+              image: (typeImage as any)[markerItem.getExtData().type],
+            })
+          );
         }
       });
     });
