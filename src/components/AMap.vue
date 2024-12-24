@@ -48,6 +48,7 @@ async function initMap() {
       extData: {
         id: item.id,
         type: item.type,
+        state: 0,
       },
     });
     viaMarker.on("click", (e: any) => {
@@ -70,15 +71,14 @@ async function initMap() {
         } else {
           //不同复原
           if (markerItem.getExtData().state === 1) {
+            markerItem.setExtData({
+              id: markerItem.getExtData().id,
+              type: markerItem.getExtData().type,
+              state: 0,
+            });
             markerItem.setIcon(
               new AMap.Icon({
                 image: (typeImage as any)[markerItem.getExtData().type],
-              })
-            );
-          } else {
-            markerItem.setIcon(
-              new AMap.Icon({
-                image: markerItem.getIcon()._opts.image,
               })
             );
           }
